@@ -25,7 +25,7 @@ func main() {
 }
 
 func tmplServer(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.New("tpl").Parse(layout))
+	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 
 	pageData := PageData{
 		PageTitle: "Аккаунты ВКонтакте",
@@ -122,127 +122,6 @@ func tmplServer(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
-
 	tmpl.Execute(w, pageData)
 }
 
-var layout string = `<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{.PageTitle}}</title>
-	<style>
-		body {
-			margin: 0 auto;
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-			font-size: 1rem;
-			font-weight: 400;
-			line-height: 1.5;
-			color: #212529;
-			text-align: left;
-			background-color: #fff;
-			padding: 20px;
-		}
-
-		header {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 44px;
-			z-index: 10;
-			background: rgba(249,249,249,.85);
-			border-bottom: 1px solid rgba(0,0,0,.1);
-			-webkit-backdrop-filter: blur(20px);
-			backdrop-filter: blur(20px);
-		}
-
-		h1 {
-			margin: 0;
-			text-align: center;
-			font-size: 18px;
-			line-height: 44px;
-		}
-
-		hr {
-			box-sizing: content-box;
-			height: 0;
-			overflow: visible;
-			margin-top: 1rem;
-			margin-bottom: 1rem;
-			border: 0;
-			border-top: 1px solid rgba(0, 0, 0, 0.1);
-		}
-
-		table {
-			border-collapse: collapse;
-			border-spacing: 0;
-			empty-cells: show;
-			border: 1px solid #cbcbcb;
-		}
-
-		table td,
-		table th {
-			border-left: 1px solid #cbcbcb;
-			border-width: 0 0 0 1px;
-			font-size: inherit;
-			margin: 0;
-			overflow: visible;
-			padding: 6px 12px;
-		}
-
-		table td:first-child,
-		table th:first-child {
-			border-left-width: 0;
-		}
-
-		table thead {
-			background: #e0e0e0;
-			color: #000;
-			text-align: left;
-			vertical-align: bottom;
-		}
-
-		table td {
-			background-color: transparent;
-			border-bottom: 1px solid #cbcbcb;
-		}
-
-		table tr:nth-child(2n) td {
-			background-color: #f2f2f2;
-		}
-		table tbody > tr:last-child td{
-			border-bottom-width: 0;
-		}
-	</style>
-</head>
-<body>
-<header>
-     <h1>{{.PageTitle}}</h1>
-    </header>
-	<hr/>
-	<table>
-		<thead>
-			<tr>
-				<th>Имя</th>
-				<th>Логин</th>
-				<th>Пароль</th>
-				<th>Токен</th>
-			</tr>
-		</thead>
-		<tbody>
-			{{range .People}}
-			<tr>
-				<td>{{.Name}}</td>
-				<td>{{.Login}}</td>
-				<td>{{.Password}}</td>
-				<td>{{.Token}}</td>
-			</tr>
-			{{end}}
-		</tbody>
-	</table>
-	<hr/>
-	<p>Data from <a href="https://qqaazzg.github.io/">QQAAZZ CREAM GROUP</a></p>
-</body>
-</html>`
